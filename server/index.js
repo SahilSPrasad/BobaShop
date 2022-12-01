@@ -13,7 +13,8 @@ app.post("/create", (req, res) => {
   const customerName = req.body.customerName;
 
   pool.query(
-    "INSERT INTO customer (phone_number, name) VALUES (?,?)",
+    `INSERT INTO "customer" ("phone_number", "name")  
+    VALUES ($1, $2)`,
     [phoneNumber, customerName],
     (err, result) => {
       if (err) {
