@@ -6,7 +6,7 @@ function App() {
   const [customerName, setCustomerName] = useState("");
 
   const handleSubmit = (e) => {
-    Axios.post("https://bobashopbackend.onrender.com/inserts", {
+    Axios.post("https://bobashopbackend.onrender.com/create", {
       phoneNumber: phoneNumber,
       customerName: customerName,
     }).then((response) => {
