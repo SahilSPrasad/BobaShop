@@ -1,11 +1,11 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "bobashopdb_user",
-  password: "EugISvS6x55LN2p3bMeJz5gIXTjxAyfB",
-  host: "dpg-ce47mvda4995pbu2jm90-a",
+  user: "bobashopdb_yrjn_user",
+  password: "o22QQOpJrNMlytNIZmSvSiYjELCnQmuZ",
+  host: "dpg-ce480len6mpku7kgag1g-a",
   port: 5432,
-  database: "bobashopdb",
+  database: "bobashopdb_yrjn",
 });
 
 module.exports = pool;
