@@ -1,29 +1,26 @@
 const express = require("express");
 const app = express();
-const Pool = require("pg").Pool;
+const cors = require("cors");
+const pool = require("./db");
 
 const port = process.env.PORT || 3001;
 
-const db = new Pool({
-  user: "bobashopdb_user",
-  host: "dpg-ce47mvda4995pbu2jm90-a",
-  database: "bobashopdb",
-  password: "EugISvS6x55LN2p3bMeJz5gIXTjxAyfB",
-  port: 5432,
-});
+app.use(cors());
+app.use(express.json());
 
-app.post("/register", (req, res) => {
-  const phoneNumber = req.body.phoneNumber;
-  const customerName = req.body.customerName;
+app.post("/inserts", async (req, res) => {
+  try {
+    const phoneNumber = req.body.phoneNumber;
+    const customerName = req.body.customerName;
 
-  db.query(
-    "INSERT INTO CUSTOMER (phone_number, name) VALUES (?, ?)"[
-      ([phoneNumber, customerName],
-      (err, result) => {
-        console.log(err);
-      })
-    ]
-  );
+    const newCustomer = pool.query(
+      "INSERT INTO customer (phone_number, name) VALUES (?, ?)",
+      [phoneNumber, customerName]
+    );
+    res.json(newCustomer);
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 app.listen(port, () => {
