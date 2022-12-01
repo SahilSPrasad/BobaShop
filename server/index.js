@@ -8,19 +8,21 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-app.post("/inserts", async (req, res) => {
-  try {
-    const phoneNumber = req.body.phoneNumber;
-    const customerName = req.body.customerName;
+app.post("/create", (req, res) => {
+  const phoneNumber = req.body.phoneNumber;
+  const customerName = req.body.customerName;
 
-    const newCustomer = pool.query(
-      "INSERT INTO customer (phone_number, name) VALUES (?, ?)",
-      [phoneNumber, customerName]
-    );
-    res.json(newCustomer);
-  } catch (err) {
-    console.error(err.message);
-  }
+  pool.query(
+    "INSERT INTO customer (phone_number, name) VALUES (?, ?)",
+    [phoneNumber, customerName],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values Inserted");
+      }
+    }
+  );
 });
 
 app.listen(port, () => {
