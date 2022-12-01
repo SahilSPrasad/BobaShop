@@ -6,7 +6,7 @@ function App() {
   const [customerName, setCustomerName] = useState("");
 
   const handleSubmit = (e) => {
-    Axios.post("https://bobashop-174.herokuapp.com//register", {
+    Axios.post("https://bobashopbackend.onrender.com/register", {
       phoneNumber: phoneNumber,
       customerName: customerName,
     }).then((response) => {
