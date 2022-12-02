@@ -26,6 +26,16 @@ app.post("/create", (req, res) => {
   );
 });
 
+app.get("/customers", (req, res) => {
+  pool.query("SELECT * FROM customer", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server listening on the port  ${port}`);
 });

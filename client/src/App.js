@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import "./App.css";
 
 function App() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [customerName, setCustomerName] = useState("");
 
-  const handleSubmit = (e) => {
-    Axios.post("https://bobashopbackend.onrender.com/create", {
-      phoneNumber: phoneNumber,
-      customerName: customerName,
-    }).then((response) => {
-      console.log(response);
-    });
+  const [customerList, setCustomerList] = useState([]);
 
+  const handleSubmit = (e) => {
     try {
+      Axios.post("https://bobashopbackend.onrender.com/create", {
+        phoneNumber: phoneNumber,
+        customerName: customerName,
+      });
     } catch (err) {
       console.error(err.message);
     }
   };
+
+  useEffect(() => {
+    Axios.get("https://bobashopbackend.onrender.com/customers").then(
+      (response) => {
+        setCustomerList(response.data.rows);
+        console.log(response.data.rows);
+      }
+    );
+  }, []);
 
   return (
     <div className="App">
@@ -43,6 +52,25 @@ function App() {
         <br />
         <button type="submit">submit</button>
       </form>
+      <br />
+      <br />
+
+      <table>
+        <thead>
+          <tr>
+            <th>phone_number</th>
+            <th>name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {customerList.map((val, key) => (
+            <tr key={key}>
+              <td>{val.phone_number}</td>
+              <td> {val.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
