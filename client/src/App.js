@@ -14,6 +14,7 @@ function App() {
         phoneNumber: phoneNumber,
         customerName: customerName,
       });
+      e.preventDefault();
     } catch (err) {
       console.error(err.message);
     }
@@ -23,7 +24,7 @@ function App() {
     Axios.get("https://bobashopbackend.onrender.com/customers").then(
       (response) => {
         setCustomerList(response.data.rows);
-        console.log(response.data.rows);
+        //console.log(response.data.rows);
       }
     );
   }, []);
