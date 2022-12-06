@@ -30,10 +30,6 @@ function App() {
     );
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   return (
     <div className="App">
       <h1>Boba Shop</h1>
