@@ -15,18 +15,23 @@ function App() {
         customerName: customerName,
       });
       e.preventDefault();
+      getData();
     } catch (err) {
       console.error(err.message);
     }
   };
 
-  useEffect(() => {
+  const getData = (e) => {
     Axios.get("https://bobashopbackend.onrender.com/customers").then(
       (response) => {
         setCustomerList(response.data.rows);
         //console.log(response.data.rows);
       }
     );
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   return (
